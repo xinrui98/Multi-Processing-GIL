@@ -1,5 +1,5 @@
 import time
-COUNT = 1000000000
+from config import COUNT
 
 def countdown(n, index):
     with open(f"countdown_{index}.txt", "w") as file:

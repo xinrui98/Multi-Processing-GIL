@@ -1,7 +1,6 @@
 import time
 import multiprocessing
-
-COUNT = 1000000000
+from config import COUNT, NUM_PROCESSES
 
 def countdown(n, index):
     with open(f"countdown_{index}.txt", "w") as file:
@@ -11,14 +10,13 @@ def countdown(n, index):
             n -= 1
 
 if __name__ == '__main__':
-    num_processes = 100
     max_processes_at_a_time = multiprocessing.cpu_count()
 
     start = time.time()
 
     with multiprocessing.Pool(processes=max_processes_at_a_time) as pool:
-        for i in range(num_processes):
-            pool.apply_async(countdown, args=(COUNT // num_processes, i))
+        for i in range(NUM_PROCESSES):
+            pool.apply_async(countdown, args=(COUNT // NUM_PROCESSES, i))
 
         pool.close()
         pool.join()
